@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Mission Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --space-dark: #0a0e23;
+            --space-blue: #1a237e;
+            --space-light: #4fc3f7;
+            --highlight: #ffab00;
+            --success: #00c853;
+            --danger: #d50000;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--space-dark);
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: rgba(10, 14, 35, 0.9);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 40px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--space-light);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--space-light), white);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            background-color: var(--space-light);
+            color: var(--space-dark);
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background-color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--space-light), transparent);
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .mission-card {
+            background-color: rgba(26, 35, 126, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(79, 195, 247, 0.2);
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.2);
+        }
+        
+        .mission-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .mission-content {
+            padding: 1.5rem;
+        }
+        
+        .mission-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .status-upcoming {
+            background-color: var(--highlight);
+            color: var(--space-dark);
+        }
+        
+        .status-active {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .status-completed {
+            background-color: var(--space-light);
+            color: var(--space-dark);
+        }
+        
+        .status-failed {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .mission-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mission-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .mission-description {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .mission-button {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--space-light);
+            color: var(--space-dark);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .mission-button:hover {
+            background-color: white;
+        }
+        
+        .live-tracker {
+            background-color: rgba(26, 35, 126, 0.3);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(79, 195, 247, 0.3);
+        }
+        
+        .tracker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tracker-map {
+            height: 400px;
+            background-color: var(--space-blue);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .satellite-marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--highlight);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 171, 0, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 171, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 171, 0, 0);
+            }
+        }
+        
+        .tracker-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .info-card {
+            background-color: rgba(10, 14, 35, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .info-card h4 {
+            color: var(--space-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .info-card p {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: var(--space-blue);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--space-light);
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="image/isro logo.png" alt="Space Agency Logo">
+            <span>Mission Tracker</span>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Missions</a>
+            <a href="#">Live Tracking</a>
+            <a href="#">News</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <h1>Explore Space Missions</h1>
+        <p>Track current and historical space missions from around the world. Get real-time updates, mission details, and live tracking information.</p>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for missions...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </section>
+    
+    <div class="container">
+        <h2 class="section-title">Featured Missions</h2>
+        
+        <div class="mission-grid">
+            <div class="mission-card">
+                <div class="mission-image" style="background-image: url('https://www.nasa.gov/wp-content/uploads/2023/04/artemis_iii_patch-scaled.jpg');"></div>
+                <div class="mission-content">
+                    <span class="mission-status status-upcoming">Upcoming</span>
+                    <h3>gaganyaan</h3>
+                    <div class="mission-meta">
+                        <span><i class="far fa-calendar-alt"></i> Q1 2025 </span>
+                        <span><i class="fas fa-rocket"></i> HLVM3</span>
+                    </div>
+                    <p class="mission-description">isro mission to return humans to the Moon, landing the first person of color on the lunar surface.</p>
+                    <a href="#" class="mission-button">View Details</a>
+                </div>
+            </div>
+            
+            <div class="mission-card">
+                <div class="mission-image" style="background-image: url('https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/11/sentinel-6_michael_freilich_satellite/22347134-1-eng-GB/Sentinel-6_Michael_Freilich_satellite.jpg');"></div>
+                <div class="mission-content">
+                    <span class="mission-status status-active">Active</span>
+                    <h3>NVS 02</h3>
+                    <div class="mission-meta">
+                        <span><i class="far fa-calendar-alt"></i> 29.01,2025</span>
+                        <span><i class="fas fa-rocket"></i>GSLV</span>
+                    </div>
+                    <p class="mission-description">Monitoring global sea-level changes with unprecedented accuracy to understand climate change impacts.</p>
+                    <a href="#" class="mission-button">View Details</a>
+                </div>
+            </div>
+            
+            <div class="mission-card">
+                <div class="mission-image" style="background-image: url('https://mars.nasa.gov/system/resources/detail_files/26645_PIA25239-web.jpg');"></div>
+                <div class="mission-content">
+                    <span class="mission-status status-active">Active</span>
+                    <h3>SPADEX- A</h3>
+                    <div class="mission-meta">
+                        <span><i class="far fa-calendar-alt"></i> 30.11.24</span>
+                        <span><i class="fas fa-rocket"></i> PSLV</span>
+                    </div>
+                    <p class="mission-description">Mars rover searching for signs of ancient life and collecting samples for future return to Earth.</p>
+                    <a href="#" class="mission-button">View Details</a>
+                </div>
+            </div>
+            
+            <div class="mission-card">
+                <div class="mission-image" style="background-image: url('https://www.jpl.nasa.gov/images/pia23378-james-webb-space-telescope-full-mirror-deployment-a-major-milestone');"></div>
+                <div class="mission-content">
+                    <span class="mission-status status-active">Active</span>
+                    <h3> SPADEX-B</h3>
+                    <div class="mission-meta">
+                        <span><i class="far fa-calendar-alt"></i>30.11.24</span>
+                        <span><i class="fas fa-rocket"></i> PSLV</span>
+                    </div>
+                    <p class="mission-description">The premier observatory of the next decade, studying every phase in the history of our Universe.</p>
+                    <a href="#" class="mission-button">View Details</a>
+                </div>
+            </div>
+            
+            <div class="mission-card">
+                <div class="mission-image" style="background-image: url('https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2014/03/rosetta/14291711-1-eng-GB/Rosetta_pillars.jpg');"></div>
+                <div class="mission-content">
+                    <span class="mission-status status-completed">Completed</span>
+                    <h3>Proba-3</h3>
+                    <div class="mission-meta">
+                        <span><i class="far fa-calendar-alt"></i> 05.10.24</span>
+                        <span><i class="fas fa-rocket"></i>PSLV</span>
+                    </div>
+                    <p class="mission-description">ESA's mission to orbit and land on comet 67P/Churyumov-Gerasimenko, studying its nucleus and environment.</p>
+                    <a href="#" class="mission-button">View Details</a>
+                </div>
+            </div>
+            
+            <div class="mission-card">
+                <div class="mission-image" style="background-image: url('https://www.nasa.gov/wp-content/uploads/2023/07/ksc-20230714-ph-shs01_0005_orig.jpg?resize=2000,1333');"></div>
+                <div class="mission-content">
+                    <span class="mission-status status-failed">Failed</span>
+                    <h3>GSAT-N2</h3>
+                    <div class="mission-meta">
+                        <span><i class="far fa-calendar-alt"></i> 19.11.24</span>
+                        <span><i class="fas fa-rocket"></i> Falcon</span>
+                    </div>
+                    <p class="mission-description">Russian lunar lander mission intended to study the south pole of the Moon but crashed during landing attempt.</p>
+                    <a href="#" class="mission-button">View Details</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="live-tracker">
+            <div class="tracker-header">
+                <h2 class="section-title">Live Mission Tracker</h2>
+                <select>
+                    <option>ISS (International Space Station)</option>
+                    <option>nav-2</option>
+                    <option>SPADEX-a</option>
+                    <option>SPADEX-B</option>
+                </select>
+            </div>
+            
+            <div class="tracker-map" id="trackerMap">
+                <div class="satellite-marker" style="top: 30%; left: 45%;"></div>
+            </div>
+            
+            <div class="tracker-info">
+                <div class="info-card">
+                    <h4>CURRENT ALTITUDE</h4>
+                    <p>420 km</p>
+                </div>
+                <div class="info-card">
+                    <h4>VELOCITY</h4>
+                    <p>7.66 km/s</p>
+                </div>
+                <div class="info-card">
+                    <h4>ORBITAL PERIOD</h4>
+                    <p>92.9 minutes</p>
+                </div>
+                <div class="info-card">
+                    <h4>INCLINATION</h4>
+                    <p>51.64°</p>
+                </div>
+                <div class="info-card">
+                    <h4>VISIBILITY</h4>
+                    <p>Visible tonight</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Mission Tracker</h3>
+                <p>Your comprehensive source for space mission information from around the world.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Space Agencies</h3>
+                <ul>
+                    <li><a href="#">NASA</a></li>
+                    <li><a href="#">ESA</a></li>
+                    <li><a href="#">Roscosmos</a></li>
+                    <li><a href="#">CNSA</a></li>
+                    <li><a href="#">ISRO</a></li>
+                    <li><a href="#">JAXA</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Mission Archives</a></li>
+                    <li><a href="#">Launch Schedule</a></li>
+                    <li><a href="#">Spacecraft Database</a></li>
+                    <li><a href="#">Astronomy Tools</a></li>
+                    <li><a href="#">Educational Materials</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Data Sources</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            
+        </div>
+    </footer>
+    
+    <script>
+        // Simple animation for the satellite marker
+        function moveSatellite() {
+            const marker = document.querySelector('.satellite-marker');
+            let x = 45;
+            let y = 30;
+            let xDirection = 1;
+            let yDirection = 1;
+            
+            setInterval(() => {
+                x += 0.2 * xDirection;
+                y += 0.1 * yDirection;
+                
+                if (x > 80 || x < 10) xDirection *= -1;
+                if (y > 70 || y < 10) yDirection *= -1;
+                
+                marker.style.left = `${x}%`;
+                marker.style.top = `${y}%`;
+            }, 100);
+        }
+        
+        // Initialize the animation when the page loads
+        window.addEventListener('load', moveSatellite);
+        
+        // Search functionality
+        document.querySelector('.search-bar button').addEventListener('click', () => {
+            const searchTerm = document.querySelector('.search-bar input').value.toLowerCase();
+            const missionCards = document.querySelectorAll('.mission-card');
+            
+            missionCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('.mission-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Allow search on Enter key
+        document.querySelector('.search-bar input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-bar button').click();
+            }
+        });
+    </script>
+</body>
+</html>

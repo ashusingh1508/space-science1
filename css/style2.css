@@ -1,0 +1,516 @@
+/* ISRO Color Scheme */
+:root {
+    --isro-dark-blue: #0a1a35;
+    --isro-medium-blue: #1a365d;
+    --isro-light-blue: #2a5a8c;
+    --isro-accent: #3a7bbf;
+    --isro-gold: #d4af37;
+    --text-white: #ffffff;
+    --text-light: #e0e0e0;
+    --text-gray: #a0a0a0;
+    --bg-light: #f5f5f5;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header Styles */
+.isro-header {
+    background-color: var(--isro-dark-blue);
+    color: var(--text-white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.isro-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.isro-logo img {
+    width: 70px;
+    height: auto;
+}
+
+.logo-text h1 {
+    font-size: 1.5rem;
+    color: var(--text-white);
+    margin-bottom: 5px;
+}
+
+.logo-text p {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.header-search form {
+    display: flex;
+}
+
+.header-search input {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    width: 250px;
+}
+
+.header-search button {
+    background-color: var(--isro-accent);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.isro-nav {
+    background-color: var(--isro-medium-blue);
+}
+
+.isro-nav ul {
+    display: flex;
+    justify-content: center;
+}
+
+.isro-nav li {
+    position: relative;
+}
+
+.isro-nav a {
+    display: block;
+    padding: 15px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.isro-nav a:hover,
+.isro-nav a.active {
+    background-color: var(--isro-light-blue);
+    color: var(--text-white);
+}
+
+.isro-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--isro-gold);
+}
+
+/* Hero Banner */
+.isro-hero {
+    background: linear-gradient(rgba(10, 26, 53, 0.8), rgba(10, 26, 53, 0.8)), 
+                url('https://www.isro.gov.in/media_isro/image/thumbnails/isro_hero.jpg');
+    background-size: cover;
+    background-position: center;
+    color: var(--text-white);
+    padding: 100px 0;
+    text-align: center;
+}
+
+.isro-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--text-white);
+}
+
+.isro-hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: var(--isro-medium-blue);
+    padding: 10px 0;
+    color: var(--text-light);
+}
+
+.breadcrumb ul {
+    display: flex;
+    gap: 10px;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: '>';
+    margin-left: 10px;
+}
+
+.breadcrumb a {
+    color: var(--text-light);
+}
+
+.breadcrumb a:hover {
+    color: var(--isro-gold);
+}
+
+/* Main Content */
+.isro-main {
+    padding: 40px 0;
+    background-color: white;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: var(--isro-dark-blue);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--isro-gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* About Section */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.highlight-box {
+    background-color: var(--isro-dark-blue);
+    color: white;
+    padding: 20px;
+    border-left: 4px solid var(--isro-gold);
+    margin-top: 20px;
+}
+
+.highlight-box h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--isro-gold);
+}
+
+.about-image {
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Stats Section */
+.stats-section {
+    background-color: var(--isro-medium-blue);
+    color: white;
+    padding: 40px 0;
+    margin: 40px 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    background-color: var(--isro-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.stat-info h3 {
+    font-size: 1.8rem;
+    color: var(--isro-gold);
+}
+
+/* Centers Section */
+.centers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.center-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.center-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.center-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.center-card h3 {
+    padding: 15px;
+    color: var(--isro-dark-blue);
+    border-bottom: 1px solid #eee;
+}
+
+.center-card p {
+    padding: 0 15px 15px;
+    color: #666;
+}
+
+.center-card p:last-child {
+    font-size: 0.9rem;
+    color: var(--isro-light-blue);
+}
+
+/* Timeline Section */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+    margin-top: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 2px;
+    background-color: var(--isro-gold);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 30px;
+}
+
+.timeline-year {
+    position: absolute;
+    left: -15px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--isro-gold);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.timeline-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    border-left: 3px solid var(--isro-dark-blue);
+}
+
+.timeline-content h3 {
+    color: var(--isro-dark-blue);
+    margin-bottom: 10px;
+}
+
+/* Footer Styles */
+.isro-footer {
+    background-color: var(--isro-dark-blue);
+    color: var(--text-light);
+    padding: 40px 0 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.footer-about p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.footer-links h3 {
+    color: var(--isro-gold);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--isro-gold);
+    padding-left: 5px;
+}
+
+.footer-contact h3 {
+    color: var(--isro-gold);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-contact p {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--isro-medium-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: var(--isro-gold);
+    color: var(--isro-dark-blue);
+}
+
+.footer-bottom {
+    padding: 20px 0;
+    border-top: 1px solid var(--isro-medium-blue);
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+.footer-bottom p:first-child {
+    margin-bottom: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .header-top {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .isro-nav ul {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .isro-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .centers-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .isro-hero {
+        padding: 60px 0;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}

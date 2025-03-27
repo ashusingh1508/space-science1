@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gaganyaan</title>
+    <style>
+        :root {
+            --space-blue: #0b3d91;
+            --space-dark: #040f27;
+            --space-light: #6c8bae;
+            --highlight: #fc3d21;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+            background-color: var(--space-dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1454789548928-9efd52dc4031?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .mission-patch {
+            width: 150px;
+            margin-bottom: 30px;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .countdown div {
+            padding: 15px;
+            margin: 0 10px;
+            background: rgba(11, 61, 145, 0.5);
+            border-radius: 5px;
+            min-width: 80px;
+        }
+        
+        .countdown span {
+            display: block;
+            text-align: center;
+        }
+        
+        .countdown span:first-child {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--highlight);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #d1341e;
+            transform: scale(1.05);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        .mission-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .detail-card {
+            background: rgba(11, 61, 145, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--space-light);
+        }
+        
+        .detail-card h3 {
+            color: var(--highlight);
+            margin-top: 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--space-blue);
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .countdown div {
+                min-width: 60px;
+                padding: 10px;
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        
+        <h1>gaganyaan</h1>
+        <p>Returning humans to the lunar surface</p>
+        
+        <div class="countdown">
+            <div>
+                <span id="days">00</span>
+                <span>Days</span>
+            </div>
+            <div>
+                <span id="hours">00</span>
+                <span>Hours</span>
+            </div>
+            <div>
+                <span id="minutes">00</span>
+                <span>Minutes</span>
+            </div>
+            <div>
+                <span id="seconds">00</span>
+                <span>Seconds</span>
+            </div>
+        </div>
+        
+        <p>Target Launch: September 2025</p>
+        <a href="#details" class="btn">Mission Details</a>
+    </header>
+    
+    <div class="container" id="details">
+        <h2>Mission Overview</h2>
+        <p>The gaganyaan will mark humanity's return to the lunar surface, landing  first person of color on the Moon.  this mission will demonstrate new capabilities to live and work on another world.</p>
+        
+        <div class="mission-details">
+            <div class="detail-card">
+                <h3>Mission Objectives</h3>
+                <ul>
+                    <li>Land astronauts near the lunar South Pole</li>
+                    <li>Conduct scientific experiments and exploration</li>
+                    <li>Test new technologies for sustainable lunar presence</li>
+                    <li>Collect lunar samples for return to Earth</li>
+                </ul>
+            </div>
+            
+            <div class="detail-card">
+                <h3>Flight Profile</h3>
+                <ul>
+                    <li>Launch: Space Launch System (SLS) rocket</li>
+                    <li>Crew Vehicle: Orion spacecraft</li>
+                    <li>Lunar Lander: SpaceX Starship HLS</li>
+                    <li>Duration: ~30 days</li>
+                    <li>Surface stay: ~6.5 days</li>
+                </ul>
+            </div>
+            
+            <div class="detail-card">
+                <h3>Scientific Goals</h3>
+                <ul>
+                    <li>Study lunar water ice deposits</li>
+                    <li>Investigate lunar geology and resources</li>
+                    <li>Deploy scientific instruments</li>
+                    <li>Test technologies for future Mars missions</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p></p>
+    </footer>
+    
+    <script>
+        // Countdown timer
+        function updateCountdown() {
+            const targetDate = new Date("September 1, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

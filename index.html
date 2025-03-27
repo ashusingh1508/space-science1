@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Space Explorer | ISRO Missions & Space Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.min.js"></script>
+    <link rel="icon" type="image.jpg" href="image/logo3.jpg">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <img src="image/logo3.jpg" alt="ISRO Logo">
+                    <span>India Space Explorer</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="./mission.html">Missions</a>
+                    <a href="./setellites.html">Satellites</a>
+                    <a href="https://en.wikipedia.org/wiki/ISRO">Education</a>
+                    <a href="#">contact us</a>
+                    <a href="about.html">About</a>
+                </div>
+                <button class="mobile-menu-btn" @click="toggleMobileMenu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="mobile-menu" :class="{active: mobileMenuOpen}">
+                <a href="index.html" class="active">Home</a>
+                <a href="./mission2.html">Missions</a>
+                <a href="#">Satellites</a>
+                <a href="education.html">Education</a>
+                <a href="#">Contact US</a>
+                <a href="about.html">About</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Exploring India's Journey to the Stars</h1>
+                    <p>Discover ISRO's achievements, ongoing missions, and how space technology impacts your daily life.</p>
+                    <div class="cta-buttons">
+                        <a href="https://learn.space-india.com/" class="btn primary">Learn Space Science</a>
+                        <a href="./mission2.html" class="btn secondary">View Missions</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="image/isro logo.png" alt="Chandrayaan Mission">
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Highlights -->
+        <section class="mission-highlights">
+            <div class="container">
+                <h2 class="section-title">India's Space Milestones</h2>
+                <div class="mission-grid">
+                    <div class="mission-card" v-for="mission in featuredMissions" :key="mission.id">
+                        
+                        <div class="mission-image">
+                            <img src="image/mangalyan.jpg" :alt="mission.name">
+                        </div>
+                        
+                        <div class="mission-details">
+                            <h3>{{mangalyan }}</h3>
+                            <p>{{ to study mars'surface,atmosphere and water presence and to test technology for future mars' mission }}</p>
+                            <span class="mission-year">{{nov/05/2013}}</span>
+                            <a :scr="../images/gaganyaan.png" class="btn small">Learn More <a 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Space Tech -->
+        <section class="daily-tech">
+            <div class="container">
+                <h2 class="section-title">Space Technology in Daily Life</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-satellite-dish"></i>
+                        </div>
+                        <h3>Weather Forecasting</h3>
+                        <p>ISRO's satellites provide crucial data for accurate weather predictions and disaster management.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Communication</h3>
+                        <p>Satellite communication enables TV broadcasts, internet services, and mobile networks across India.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Navigation</h3>
+                        <p>NAVIC provides accurate positioning information for transportation and location services.</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Agriculture</h3>
+                        <p>Satellite imagery helps in crop monitoring, soil assessment, and yield prediction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Events -->
+        <section class="upcoming-events">
+            <div class="container">
+                <h2 class="section-title">Upcoming Missions & Events</h2>
+                <div class="event-timeline">
+                    <div class="event" v-for="event in upcomingEvents" :key="event.id">
+                        <div class="Q 1 2025">
+                            <span class="spacecraft"> <img src="./chandrayan.jpg" alt="chandrayan"></span>
+                            <span class="mission"></span>
+                        </div>
+                        <div class="event-details">
+                            <h3></h3>
+                            <p>{{Gaganyaan ("Orbital Vehicle") is an Indian crewed orbital spacecraft (jointly made by ISRO and HAL) intended to be the basis of the Indian Human Spaceflight Programme. The spacecraft is being designed to carry three people, and a planned upgraded version will be equipped with rendezvous and docking capability. This will be the first of two flight tests prior to the inaugural of crewed mission }}</p>
+                            <a :href="../images/gaganyaan.png" class="btn small">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="newsletter">
+            <div class="container">
+                <div class="newsletter-content">
+                    <h2>Stay Updated with India's Space Program</h2>
+                    <p>Subscribe to our newsletter for mission updates, educational content, and space news.</p>
+                </div>
+                <form class="newsletter-form" @submit.prevent="subscribeNewsletter">
+                    <input type="email" placeholder="Your email address" v-model="email" required>
+                    <button type="submit" class="btn primary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>India Space Explorer</h3>
+                        <p>An educational initiative to promote awareness about India's space program and space science.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="missions.html">Missions</a></li>
+                            <li><a href="satellites.html">Satellites</a></li>
+                            <li><a href="education.html">Education</a></li>
+                            <li><a href="news.html">News & Updates</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="https://www.isro.gov.in" target="_blank">Official ISRO Website</a></li>
+                            <li><a href="https://www.sac.gov.in" target="_blank">Space Applications Centre</a></li>
+                            <li><a href="https://www.vssc.gov.in" target="_blank">VSSC</a></li>
+                            <li><a href="https://www.ursc.gov.in" target="_blank">URSC</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Contact</h3>
+                        <ul>
+                            <li><i class="fas fa-envelope"></i> contact@indiaspaceexplorer.in</li>
+                            <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Bangalore, India</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>.</p>
+                    <div class="footer-links">
+                        
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>India Space Explorer | ISRO Missions & Space Science</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="app">
+
+      
